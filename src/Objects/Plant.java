@@ -1,7 +1,6 @@
 package Objects;
 
 
-import Controllers.ICrosser;
 import java.awt.image.BufferedImage;
 
 public class Plant implements ICrosser {

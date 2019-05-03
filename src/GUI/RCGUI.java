@@ -1,6 +1,6 @@
 package GUI;
 
-import Controllers.IcrossingStrategy;
+import Stories.IcrossingStrategy;
 import Stories.*;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -31,7 +31,6 @@ public class RCGUI extends JPanel implements MouseListener {
     // ==========================================================
     // Private Fields
     // ==========================================================
-    private GameController engine; // Controller
     private Story1 ics1 = new Story1();
     private Story2 ics2 = new Story2();
     private int TYPE = 0;
@@ -48,7 +47,7 @@ public class RCGUI extends JPanel implements MouseListener {
     }
     
     // ==========================================================
-    // Setters and Getters
+    // Setters and Getters and Button Listeners
     // ==========================================================
     
     
@@ -66,6 +65,14 @@ public class RCGUI extends JPanel implements MouseListener {
     
     void addMenuButton1Listener(ActionListener listenerforMenuButton1){
         menuButtons[1].addActionListener(listenerforMenuButton1);
+    }
+    
+    void addMenuButton2Listener(ActionListener listenerforMenuButton2){
+        menuButtons[2].addActionListener(listenerforMenuButton2);
+    }
+    
+    void addMenuButton3Listener(ActionListener listenerforMenuButton3){
+        menuButtons[3].addActionListener(listenerforMenuButton3);
     }
     
     void addMenuButton4Listener(ActionListener listenerforMenuButton4){
@@ -122,6 +129,7 @@ public class RCGUI extends JPanel implements MouseListener {
         for (int i = 0; i < this.menuButtons.length; i++) {
             this.menuButtons[i].setBounds(150 + i * 100, 20, 100, 20);
             this.add(this.menuButtons[i]);
+            menuButtons[i].setEnabled(true);
         }
     }
 

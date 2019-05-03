@@ -1,8 +1,7 @@
 package Stories;
 
 import Objects.*;
-import Controllers.ICrosser;
-import Controllers.IcrossingStrategy;
+import Objects.ICrosser;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,28 +52,28 @@ public class Story2 implements IcrossingStrategy {
     }
 
     public Story2() {
-        ICrosser farmer1 = f.getCrosser("Farmer");
+        ICrosser farmer1 = f.getSailor();
         farmer1.setWeight(90);
-        ICrosser farmer2 = f.getCrosser("Farmer");
+        ICrosser farmer2 = f.getSailor();
         farmer2.setWeight(80);
-        ICrosser farmer3 = f.getCrosser("Farmer");
+        ICrosser farmer3 = f.getSailor();
         farmer3.setWeight(60);
-        ICrosser farmer4 = f.getCrosser("Farmer");
+        ICrosser farmer4 = f.getSailor();
         farmer4.setWeight(40);
-        ICrosser fox = f.getCrosser("Fox");
-        fox.setWeight(20);
+        ICrosser carnivore = f.getCarnivore();
+        carnivore.setWeight(20);
 
         c.add(farmer1);
         c.add(farmer2);
         c.add(farmer3);
         c.add(farmer4);
-        c.add(fox);
+        c.add(carnivore);
         
         leftBankCrosser.add(farmer1);
         leftBankCrosser.add(farmer2);
         leftBankCrosser.add(farmer3);
         leftBankCrosser.add(farmer4);
-        leftBankCrosser.add(fox);
+        leftBankCrosser.add(carnivore);
         rightBankCrosser.clear();
         onBoatCrosser.clear();
     }

@@ -1,8 +1,7 @@
 package GUI;
 
-import Controllers.ICrosser;
-import Controllers.IRiverCrossingController;
-import Controllers.IcrossingStrategy;
+import Objects.ICrosser;
+import Stories.IcrossingStrategy;
 import Stories.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class GameController implements IRiverCrossingController {
 
-    IcrossingStrategy str;//model
+    IcrossingStrategy str;//strategy 
     private int numberOfSails = 0;
     private boolean isOnLeftBank = true;
     private List<ICrosser> boatCrossers = new ArrayList<>();
@@ -36,15 +35,15 @@ public class GameController implements IRiverCrossingController {
     
     
     public GameController(RCGUI theView){
-        System.out.println("the view is nulll?");
-        System.out.println(theView==null);
         this.theView = theView;
-        System.out.println(theView==null);
         this.theView.addPlayButton0Listener(new listenerforPlayButton0());
         this.theView.addPlayButton3Listener(new listenerforPlayButton3());
         this.theView.addMenuButton0Listener(new listenerforMenuButton0());
         this.theView.addMenuButton1Listener(new listenerforMenuButton1());
+        this.theView.addMenuButton2Listener(new listenerforMenuButton2());
+        this.theView.addMenuButton3Listener(new listenerforMenuButton3());
         this.theView.addMenuButton4Listener(new listenerforMenuButton4());
+        
         
     }
 
@@ -52,64 +51,6 @@ public class GameController implements IRiverCrossingController {
         return theView;
     }
 
-    class listenerforPlayButton0 implements ActionListener{
-        
-        ArrayList<Integer> crossers = new ArrayList<>();
-        
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("ana da5lat gowa");
-                for (int i = 0; i < theView.rightCheckBox.length; i++) {
-                    if (theView.rightCheckBox[i].isSelected()) {
-                        crossers.add(i);
-                    }
-                }
-                System.out.println("RCGUI --> [OnBoat] |B|" + getCrossersOnBoat(crossers));
-                boolean valid = isBoatOnTheLeftBank();
-                if (canMove(getCrossersOnBoat(crossers), valid)) {
-                    doMove(getCrossersOnBoat(crossers), valid);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");
-                }
-                System.out.println("RCGUI -> leftBankCrosser |B| " + getCrossersOnLeftBank().size());
-                System.out.println("RCGUI -> rightBankCrosser |B| " + getCrossersOnRightBank().size());
-                theView.repaint();
-                crossers.clear();
-                getEnabledAndDisabled();
-            }   
-        
-        
-        
-    }
-   
-    class listenerforPlayButton3 implements ActionListener{
-    
-            ArrayList<Integer> crossers = new ArrayList<>();
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < theView.leftCheckBox.length; i++) {
-                    if (theView.leftCheckBox[i].isSelected()) { crossers.add(i);}
-                }
-                System.out.println("RCGUI --> [OnBoat] |F|" + getCrossersOnBoat(crossers));
-                boolean valid = isBoatOnTheLeftBank();
-                System.out.println(valid);
-                if (canMove(getCrossersOnBoat(crossers), valid)) {
-                    doMove(getCrossersOnBoat(crossers), valid);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");
-                }
-                System.out.println("RCGUI -> leftBankCrosser |F| " + getCrossersOnLeftBank().size());
-                System.out.println("RCGUI -> rightBankCrosser |F| " + getCrossersOnRightBank().size());
-                theView.repaint();
-                if (getCrossersOnLeftBank().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Bravoooooooo!");
-                  //  closeEveryThingNow();
-                }
-                crossers.clear();
-                getEnabledAndDisabled();
-            }
-    }
-    
     @Override
     public void newGame(IcrossingStrategy gameStrategy) {
         str = gameStrategy;
@@ -120,6 +61,7 @@ public class GameController implements IRiverCrossingController {
         this.numberOfSails = 0;
         this.isOnLeftBank = false;
         newGame(str);
+        getEnabledAndDisabled();
     }
 
     @Override
@@ -150,11 +92,11 @@ public class GameController implements IRiverCrossingController {
 
     @Override
     public boolean canMove(List<ICrosser> crossers, boolean fromLeftToRightBank) {
-        List<ICrosser> tempRight = new ArrayList<ICrosser>();
+        List<ICrosser> tempRight = new ArrayList<>();
         for(int i = 0; i < getCrossersOnRightBank().size(); i++)
             tempRight.add(getCrossersOnRightBank().get(i));
 
-        List<ICrosser> tempLeft = new ArrayList<ICrosser>();
+        List<ICrosser> tempLeft = new ArrayList<>();
         for(int i = 0; i < getCrossersOnLeftBank().size(); i++)
             tempLeft.add(getCrossersOnLeftBank().get(i));
         
@@ -267,7 +209,7 @@ public class GameController implements IRiverCrossingController {
         * so for CrossersOnRighhtBank: list of length 8, index is step number
         *          CrossersOnLeftBank: list of length 8, index is step number
         *            IsBoatOnLeftSide: list of length 8, index is step number
-        * 
+        *                       Score: score should be handled as well..
         * When user clicks on solve game button, the current state the user stopped at
         * will be compared to the lists above, then the program will go to next index,
         * and solve the game accordingly.
@@ -288,6 +230,27 @@ public class GameController implements IRiverCrossingController {
         return this.boatCrossers;
     }
 
+    public void getEnabledAndDisabled() {
+        if (isBoatOnTheLeftBank()) {
+            theView.playButtons[0].setEnabled(false);//left button disabled
+            theView.playButtons[3].setEnabled(true);//right button enabled
+            for (int i = 0; i < theView.leftCheckBox.length; i++) {
+                theView.leftCheckBox[i].setSelected(false);//clear left selection
+                theView.leftCheckBox[i].setEnabled(true);//enable left selection
+                theView.rightCheckBox[i].setSelected(false);//clear right selection
+                theView.rightCheckBox[i].setEnabled(false);//disable right selection
+            }
+        } else {//if boat on right side
+            theView.playButtons[0].setEnabled(true);//left button enabled
+            theView.playButtons[3].setEnabled(false);//rigt butoon disabled
+            for (int i = 0; i < theView.leftCheckBox.length; i++) {
+                theView.leftCheckBox[i].setSelected(false);//clear left selection
+                theView.leftCheckBox[i].setEnabled(false);//disable left selection
+                theView.rightCheckBox[i].setSelected(false);//clear right selection
+                theView.rightCheckBox[i].setEnabled(true);//enable left selection
+            }
+        }
+    }
     
     class listenerforMenuButton0 implements ActionListener {
 
@@ -295,14 +258,11 @@ public class GameController implements IRiverCrossingController {
         public void actionPerformed(ActionEvent ae) {
             System.out.println("im inside the action even fn for menu button0 ");
             theView.setInit(false);
-            System.out.println("i passed setINIt");
             newGame((IcrossingStrategy) theView.getIcs1());
-            System.out.println("i passed new game call");
             theView.setTYPE(1);
             theView.initialize(theView.getTYPE());
-            System.out.println("i passed initilaasjhuiaazz");
             theView.repaint();
-            System.out.println("i passed repaint, so everything should be fine");
+            getEnabledAndDisabled();
         }
     }
 
@@ -315,7 +275,24 @@ public class GameController implements IRiverCrossingController {
             theView.setTYPE(2);
             theView.initialize(theView.getTYPE());
             theView.repaint();
+            getEnabledAndDisabled();
         }
+    }
+    
+    class listenerforMenuButton2 implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae){
+            resetGame();
+        } 
+    
+    }
+    
+    class listenerforMenuButton3 implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent ae){
+            loadGame();
+        } 
+    
     }
     
     class listenerforMenuButton4 implements ActionListener{
@@ -326,26 +303,94 @@ public class GameController implements IRiverCrossingController {
     
     }
 
-public void getEnabledAndDisabled() {
-        if (isBoatOnTheLeftBank()) {
-            theView.playButtons[0].setEnabled(false);
-            theView.playButtons[3].setEnabled(true);
-            for (int i = 0; i < theView.leftCheckBox.length; i++) {
-                theView.leftCheckBox[i].setSelected(false);
-                theView.leftCheckBox[i].setEnabled(true);
-                theView.rightCheckBox[i].setSelected(false);
-                theView.rightCheckBox[i].setEnabled(false);
-            }
-        } else {
-            theView.playButtons[0].setEnabled(true);
-            theView.playButtons[3].setEnabled(false);
-            for (int i = 0; i < theView.leftCheckBox.length; i++) {
-                theView.leftCheckBox[i].setSelected(false);
-                theView.leftCheckBox[i].setEnabled(false);
-                theView.rightCheckBox[i].setSelected(false);
-                theView.rightCheckBox[i].setEnabled(true);
-            }
-        }
+    class listenerforPlayButton0 implements ActionListener{
+        
+        ArrayList<Integer> crossers = new ArrayList<>();
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("ana da5lat gowa");
+                for (int i = 0; i < theView.rightCheckBox.length; i++) {
+                    if (theView.rightCheckBox[i].isSelected()) {
+                        crossers.add(i);
+                    }
+                }
+                System.out.println("RCGUI --> [OnBoat] |B|" + getCrossersOnBoat(crossers));
+                boolean valid = isBoatOnTheLeftBank();
+                if (canMove(getCrossersOnBoat(crossers), valid)) {
+                    doMove(getCrossersOnBoat(crossers), valid);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");
+                }
+                System.out.println("RCGUI -> leftBankCrosser |B| " + getCrossersOnLeftBank().size());
+                System.out.println("RCGUI -> rightBankCrosser |B| " + getCrossersOnRightBank().size());
+                theView.repaint();
+                crossers.clear();
+                getEnabledAndDisabled();
+            }   
+        
+        
+        
     }
+
+    class listenerforPlayButton1 implements ActionListener{
+        
+        ArrayList<Integer> crossers = new ArrayList<>();
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {}}
+    
+    class listenerforPlayButton2 implements ActionListener{
+        
+        ArrayList<Integer> crossers = new ArrayList<>();
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {}}
+    
+    class listenerforPlayButton3 implements ActionListener{
+    
+            ArrayList<Integer> crossers = new ArrayList<>();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < theView.leftCheckBox.length; i++) {
+                    if (theView.leftCheckBox[i].isSelected()) { crossers.add(i);}
+                }
+                System.out.println("RCGUI --> [OnBoat] |F|" + getCrossersOnBoat(crossers));
+                boolean valid = isBoatOnTheLeftBank();
+                System.out.println(valid);
+                if (canMove(getCrossersOnBoat(crossers), valid)) {
+                    doMove(getCrossersOnBoat(crossers), valid);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");
+                }
+                System.out.println("RCGUI -> leftBankCrosser |F| " + getCrossersOnLeftBank().size());
+                System.out.println("RCGUI -> rightBankCrosser |F| " + getCrossersOnRightBank().size());
+                theView.repaint();
+                if (getCrossersOnLeftBank().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Bravoooooooo!");
+                  //  closeEveryThingNow();
+                }
+                crossers.clear();
+                getEnabledAndDisabled();
+            }
+    }
+    
+    class listenerforPlayButton4 implements ActionListener{
+        
+        ArrayList<Integer> crossers = new ArrayList<>();
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {}}
+    
+    class listenerforPlayButton5 implements ActionListener{
+        
+        ArrayList<Integer> crossers = new ArrayList<>();
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {}}
+    
+    
+    
+
     
 }

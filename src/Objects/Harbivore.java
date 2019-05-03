@@ -1,6 +1,5 @@
 package Objects;
 
-import Controllers.ICrosser;
 import java.awt.image.BufferedImage;
 
 public class Harbivore implements ICrosser{
