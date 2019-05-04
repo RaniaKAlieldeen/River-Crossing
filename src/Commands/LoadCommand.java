@@ -1,24 +1,19 @@
 
 package Commands;
-
-import GUI.GameController;
-
 /**
  *
  * @author Rania
  */
-public class LoadCommand implements ICommands{
+public class LoadCommand extends Command{
 
-    private GameController gControl;
-    
     @Override
     public void execute() {
-        gControl.loadGame();
+        getEngine().loadGame();
     }
 
     @Override
     public void unexecute() {
-        gControl.saveGame();
+        getEngine().saveGame();
     }
     
 }

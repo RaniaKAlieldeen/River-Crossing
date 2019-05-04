@@ -128,12 +128,12 @@ public class Story2 implements IcrossingStrategy {
     @Override
     public String[] getInstructions() {
         String[] instructions = new String[100];
-        instructions[0] = "The farmer is the only one who can sail the boat/n";
-        instructions[1] = "The farmer can take only one passeneger in the boat/n";
-        instructions[2] = "you cannt leave any two crpsser who can harm each other/n";
-        instructions[3] = "carnevour can  harm a herbevour when left without a farmer.. /n";
-        instructions[3] = "herbevour can  harm a Plant when left without a farmer.. /n";
-        instructions[3] = "no body can harm a farmer.. /n";
+        instructions[0] = "“Four farmers and their animal need to cross a river in a small boat.\n"
+                + " The weights of the farmers are 90 kg, 80 kg,60 kg and 40 kg respectively, "
+                +"and the weight of the animal is 20 kg.”\n" 
+                +"Rules:\n" +"1. The boat cannot bear a load heavier than 100 kg.\n" +
+                    "2. All farmers can raft, while the animal cannot.\n" +
+                        "How can they all get to the other side with their animal?";
         return instructions;
     }
 

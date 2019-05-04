@@ -1,23 +1,24 @@
 
 package Commands;
 
-import GUI.GameController;
 
 /**
  *
  * @author Rania
  */
-public class UndoCommand implements ICommands{
-    private GameController gControl;
+public class UndoCommand extends Command{
+ 
 
+    
+    
     @Override
     public void execute() {
-        gControl.undo();
+        getEngine().undo();
     }
 
     @Override
     public void unexecute() {
-        gControl.redo();
+        getEngine().redo();
     }
     
     

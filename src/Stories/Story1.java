@@ -148,12 +148,12 @@ public class Story1 implements IcrossingStrategy {
     @Override
     public String[] getInstructions() {
         String[] instructions = new String[1];
-        instructions[0] = "The farmer is the only one who can sail the boat\n"
-                + "The farmer can take only one passeneger in the boat\n"
-                + "you cannt leave any two crosser who can harm each other\n"
-                + "Carnevour can  harm a herbevour when left without a farmer..\n"
-                + "herbevour can  harm a Plant when left without a farmer.. \n"
-                + "no body can harm a farmer.. \n";
+        instructions[0] = "The farmer is the only one who can sail the boat.\n"
+                + "The farmer can take only one passeneger in the boat.\n"
+                + "You cannot leave any two crosser who can harm each other.\n"
+                + "Carnivore can  harm a herbevour when left without a farmer.\n"
+                + "Herbivore can  harm a Plant when left without a farmer.\n"
+                + "No animals can harm a farmer.. \n";
         return instructions;
     }
 

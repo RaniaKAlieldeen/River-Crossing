@@ -13,7 +13,7 @@ public interface IRiverCrossingController {
     /**
      * resets the game without changing the strategy
      */
-    public void resetGame();
+    public void resetGame(int x);
 
     /**
      * @return the current strategy instructions if the user want to see them

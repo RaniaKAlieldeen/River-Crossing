@@ -26,7 +26,7 @@ public class RCGUI extends JPanel implements MouseListener {
     JCheckBox rightCheckBox[] = {new JCheckBox(), 
         new JCheckBox(), new JCheckBox(), new JCheckBox(), new JCheckBox()};
     JButton[] playButtons = {new JButton("<<"), 
-        new JButton("Undo"), new JButton("Redo"), new JButton(">>"), new JButton("Result")};
+        new JButton("Undo"), new JButton("Redo"), new JButton(">>"), new JButton("Result"),new JButton("Inst.")};
     JButton[] menuButtons = {new JButton("Story 1"), 
         new JButton("Story 2"), new JButton("Reset"), new JButton("Load"), new JButton("Save")};
     static JLabel label = new JLabel("helooo");
@@ -45,7 +45,6 @@ public class RCGUI extends JPanel implements MouseListener {
         creatMainButtons();
         addMouseListener(this);
         RCGUI.theView = this;
-        //engine = GameController.createSingleton(this, null);
     }
     
     // ==========================================================
@@ -71,6 +70,10 @@ public class RCGUI extends JPanel implements MouseListener {
     
     void addPlayButton4Listener(ActionListener listenerforPlayButton4){
         playButtons[4].addActionListener(listenerforPlayButton4);
+    }
+    
+    void addPlayButton5Listener(ActionListener listenerforPlayButton5){
+        playButtons[5].addActionListener(listenerforPlayButton5);
     }
     
     void addMenuButton0Listener(ActionListener listenerforMenuButton0){
@@ -150,7 +153,7 @@ public class RCGUI extends JPanel implements MouseListener {
 
     public void creatPlayButtons() {
         for (int i = 0; i < this.playButtons.length; i++) {
-            this.playButtons[i].setBounds(150 + i * 100, 620, 100, 20);
+            this.playButtons[i].setBounds(100 + i * 100, 620, 100, 20);
             this.add(this.playButtons[i]);
             if (i < 3) {
                 this.playButtons[i].setEnabled(false);
@@ -232,9 +235,6 @@ public class RCGUI extends JPanel implements MouseListener {
         RCGUI newContentPane = new RCGUI();
         newContentPane.setOpaque(true);
         newContentPane.setLayout(null);
-        label.setBounds(300, 20, 100, 20);
-        label.setVisible(true);
-        newContentPane.add(label);
         frame.setContentPane(newContentPane);
         
         // Display the window
@@ -242,20 +242,12 @@ public class RCGUI extends JPanel implements MouseListener {
         frame.setResizable(false);
         frame.setVisible(true);
         setTheView(newContentPane);
-       // return newContentPane;
+ 
     }
 
     public static void view(){
-        
          javax.swing.SwingUtilities.invokeLater(RCGUI::createAndShowGUI);
-         
     }
-    
-   /* public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(RCGUI::createAndShowGUI);
-    }*/
 
     // ==========================================================
     // MouseListener Methods 

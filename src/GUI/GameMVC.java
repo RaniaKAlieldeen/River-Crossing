@@ -16,7 +16,7 @@ public class GameMVC {
         } catch (InterruptedException ex) {
             Logger.getLogger(GameMVC.class.getName()).log(Level.SEVERE, null, ex);
         }
-       engine = GameController.createSingleton();
+       engine = GameController.getSingleton();
 
     }
 
