@@ -30,6 +30,10 @@ public class RCGUI extends JPanel implements MouseListener {
     JButton[] menuButtons = {new JButton("Story 1"), 
         new JButton("Story 2"), new JButton("Reset"), new JButton("Load"), new JButton("Save")};
     static JLabel label = new JLabel("helooo");
+    JLabel[] labels ={ new JLabel(" 90KG"),new JLabel(" 80KG"),new JLabel("60KG"),
+        new JLabel("40KG"),new JLabel("20KG")};
+    JLabel[] labels1 ={new JLabel("eating rank=1"),new JLabel(" eating rank=2"),
+        new JLabel("eating rank = 3"),new JLabel("TooBigTobeTrue")};
     // ==========================================================
     // Private Fields
     // ==========================================================
@@ -137,6 +141,7 @@ public class RCGUI extends JPanel implements MouseListener {
     public void initialize(int story) {
         creatPlayButtons();
         makeCheckBoxes(story);
+        makelabels(story);
         for (int i = 0; i < rightCheckBox.length; i++) {
             this.rightCheckBox[i].setEnabled(false);
         }
@@ -243,6 +248,31 @@ public class RCGUI extends JPanel implements MouseListener {
         frame.setVisible(true);
         setTheView(newContentPane);
  
+    }
+    
+    public void makelabels(int story) {
+        if (story == 1) {
+            for (int i = 0; i < labels1.length; i++) {
+                labels1[i].setBounds(100, (100 + i * 100), 100, 100);
+                labels1[i].setBackground(Color.RED);
+                labels1[i].setForeground(Color.white);
+                labels1[i].setVisible(true);
+                this.add(labels1[i]);
+                
+            }
+            for(int i = 0; i < labels.length; i++)
+                labels[i].setVisible(false);
+        } else {
+            for (int i = 0; i < labels.length; i++) {
+                labels[i].setBounds(140, (100 + i * 100), 140, 140);
+                labels[i].setBackground(Color.YELLOW);
+                labels[i].setForeground(Color.white);
+                labels[i].setVisible(true);
+                this.add(labels[i]);
+            }
+            for(int i = 0; i < labels1.length; i++)
+                labels1[i].setVisible(false);
+        }
     }
 
     public static void view(){
