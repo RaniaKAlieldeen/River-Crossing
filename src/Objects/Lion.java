@@ -38,4 +38,10 @@ public class Lion extends Carnivore {
         }
         return b;
     }
+
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Lion();
+        return crosser;
+    }
 }

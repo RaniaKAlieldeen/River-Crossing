@@ -52,10 +52,7 @@ public class Farmer implements ICrosser {
         return this.weight;
     }
 
-    @Override
-    public ICrosser makeCopy() {
-        return (ICrosser) this;
-    }
+    
 
     @Override
     public void setLabelToBeShown(String label) {
@@ -65,5 +62,12 @@ public class Farmer implements ICrosser {
     @Override
     public String getLabelToBeShown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ICrosser makeCopy() {
+        Farmer crosser = new Farmer();
+        crosser.setWeight(this.getWeight());
+        return (ICrosser) crosser;    
     }
 }

@@ -17,7 +17,7 @@ public class LoadCommand implements ICommands{
     }
 
     @Override
-    public void undo() {
+    public void unexecute() {
         gControl.saveGame();
     }
     

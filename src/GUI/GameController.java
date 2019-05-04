@@ -3,6 +3,7 @@ package GUI;
 import Objects.ICrosser;
 import Stories.IcrossingStrategy;
 import Stories.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.XMLEncoder;
@@ -193,12 +194,15 @@ public class GameController implements IRiverCrossingController {
     public void undo() {
 
         List<ICrosser> crossers = new ArrayList<>();
+        ArrayList<ICrosser> onBoat = new ArrayList<>();
+        for (ICrosser c : boatCrossers) {
+            onBoat.add(c.makeCopy());
+        }
+        redoStack.push(onBoat);
         crossers = (List<ICrosser>) undoStack.pop();
-        System.out.println("crossers popped from undo" + crossers);
         doMove(crossers, isOnLeftBank);
-        getEnabledAndDisabled();
-        redoStack.push(getCrossersOnBoat());
-        System.out.println("crossers put in redo stack: " + getCrossersOnBoat());
+        
+        //System.out.println("crossers put in REDO stack: " +redoStack.toString());
         theView.repaint();
 
     }
@@ -210,7 +214,11 @@ public class GameController implements IRiverCrossingController {
         crossers = (List<ICrosser>) redoStack.pop();
         doMove(crossers, isOnLeftBank);
         getEnabledAndDisabled();
-        undoStack.push(getCrossersOnBoat());
+        ArrayList<ICrosser> onBoat = new ArrayList<>();
+        for (ICrosser c : boatCrossers) {
+            onBoat.add(c.makeCopy());
+        }
+        undoStack.push(onBoat);
         theView.repaint();
 
     }
@@ -300,6 +308,9 @@ public class GameController implements IRiverCrossingController {
             newGame((IcrossingStrategy) theView.getIcs1());
             theView.setTYPE(1);
             theView.initialize(theView.getTYPE());
+            RCGUI.label.setVisible(true);
+            RCGUI.label.setText("motherfucxkers");
+            RCGUI.label.setBackground(Color.yellow);
             theView.repaint();
             undoStack.clear();
 
@@ -339,7 +350,7 @@ public class GameController implements IRiverCrossingController {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            loadGame();
+            //loadGame();
             //theView.repaint();
             JOptionPane.showMessageDialog(null, "Still under construction :(");
         }
@@ -361,7 +372,7 @@ public class GameController implements IRiverCrossingController {
     class listenerforPlayButton0 implements ActionListener {
 
         ArrayList<Integer> crossers = new ArrayList<>();
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -374,10 +385,11 @@ public class GameController implements IRiverCrossingController {
             boolean valid = isBoatOnTheLeftBank();
             if (canMove(getCrossersOnBoat(crossers), valid)) {
                 doMove(getCrossersOnBoat(crossers), valid);
-                System.out.println("crossers on boat: " + getCrossersOnBoat());
-                undoStack.push(getCrossersOnBoat());
-                System.out.println("crossers popped in undo" + getCrossersOnBoat().get(0).getClass()+" "+getCrossersOnBoat().get(1).getClass());
-                //System.out.println("anaa ahoooo"+getCrossersOnBoat());
+                ArrayList<ICrosser> onBoat = new ArrayList<>();
+                for(ICrosser c : boatCrossers){
+                    onBoat.add(c.makeCopy());
+                }
+                undoStack.push(onBoat);
             } else {
                 JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");
             }
@@ -399,6 +411,7 @@ public class GameController implements IRiverCrossingController {
         public void actionPerformed(ActionEvent e) {
             if (canUndo()) {
                 undo();
+                theView.repaint();
             } else {
                 JOptionPane.showMessageDialog(null, "There Is Nothing To Undo");
             }
@@ -436,12 +449,13 @@ public class GameController implements IRiverCrossingController {
             }
             System.out.println("RCGUI --> [OnBoat] |F|" + getCrossersOnBoat(crossers));
             boolean valid = isBoatOnTheLeftBank();
-            //System.out.println(valid);
             if (canMove(getCrossersOnBoat(crossers), valid)) {
                 doMove(getCrossersOnBoat(crossers), valid);
-                System.out.println("crossers on boat: " + getCrossersOnBoat());
-                undoStack.push(getCrossersOnBoat());
-                System.out.println("crossers pushed undo" + getCrossersOnBoat().get(0).getClass()+" "+getCrossersOnBoat().get(1).getClass());
+                ArrayList<ICrosser> onBoat = new ArrayList<>();
+                for(ICrosser c : boatCrossers){
+                    onBoat.add(c.makeCopy());
+                }
+                undoStack.push(onBoat);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Error move! please be smarter :)");

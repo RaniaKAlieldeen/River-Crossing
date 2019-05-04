@@ -2,7 +2,7 @@ package Objects;
 
 import java.awt.image.BufferedImage;
 
-public class Carnivore implements ICrosser {
+public abstract class Carnivore implements ICrosser {
 
     private double weight = 0;
     
@@ -35,10 +35,7 @@ public class Carnivore implements ICrosser {
     }
 
     @Override
-    public ICrosser makeCopy() {
-        ICrosser crosser = new Carnivore();
-        return (ICrosser) crosser;
-    }
+    public abstract ICrosser makeCopy() ;
 
     @Override
     public void setLabelToBeShown(String label) {

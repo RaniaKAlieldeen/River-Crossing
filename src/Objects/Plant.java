@@ -3,11 +3,13 @@ package Objects;
 
 import java.awt.image.BufferedImage;
 
-public class Plant implements ICrosser {
+public abstract class Plant implements ICrosser {
 
     public Plant() {
     }
 
+    
+    
     @Override
     public boolean canSail() {
         return false;
@@ -33,10 +35,7 @@ public class Plant implements ICrosser {
         return 0.0;  }
 
     @Override
-    public ICrosser makeCopy() {
-        ICrosser crosser = new Plant();
-        return (ICrosser) crosser;
-    }
+    public abstract ICrosser makeCopy();
 
     @Override
     public void setLabelToBeShown(String label) {
@@ -47,5 +46,7 @@ public class Plant implements ICrosser {
     public String getLabelToBeShown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
 
 }

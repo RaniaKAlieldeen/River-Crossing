@@ -16,7 +16,7 @@ public class UndoCommand implements ICommands{
     }
 
     @Override
-    public void undo() {
+    public void unexecute() {
         gControl.redo();
     }
     

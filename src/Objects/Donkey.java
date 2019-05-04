@@ -29,4 +29,11 @@ public class Donkey extends Harbivore {
         return h;
     }
 
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Donkey();
+        return crosser;
+    }
+
+     
 }

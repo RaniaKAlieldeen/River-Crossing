@@ -27,5 +27,10 @@ public class Carrot extends Plant {
         }
         return c;
     }
-
+    
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Carrot();
+        return crosser;
+    }
 }

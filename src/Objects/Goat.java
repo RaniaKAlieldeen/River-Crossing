@@ -27,4 +27,10 @@ public class Goat extends Harbivore {
 
         return h;
     }
+
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Goat();
+        return crosser;
+    }
 }

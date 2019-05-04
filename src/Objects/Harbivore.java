@@ -2,7 +2,7 @@ package Objects;
 
 import java.awt.image.BufferedImage;
 
-public class Harbivore implements ICrosser{
+public abstract class Harbivore implements ICrosser{
 
     public Harbivore(){
     }
@@ -31,11 +31,8 @@ public class Harbivore implements ICrosser{
     }
 
     @Override
-    public ICrosser makeCopy() {
-        ICrosser crosser = new Harbivore();
-        return (ICrosser) crosser;
-    }
-
+    public abstract ICrosser makeCopy(); 
+    
     @Override
     public void setLabelToBeShown(String label) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

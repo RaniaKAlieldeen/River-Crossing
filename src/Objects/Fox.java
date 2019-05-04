@@ -31,4 +31,9 @@ public class Fox extends Carnivore {
 
     }
 
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Fox();
+        return crosser;
+    }
 }

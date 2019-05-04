@@ -7,5 +7,5 @@ package Commands;
  */
 public interface ICommands {
     public void execute();
-    public void undo();
+    public void unexecute();
 }

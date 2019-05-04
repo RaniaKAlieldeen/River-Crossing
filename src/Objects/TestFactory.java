@@ -5,7 +5,6 @@
  */
 package Objects;
 
-import java.util.Random;
 
 /**
  *
@@ -13,17 +12,13 @@ import java.util.Random;
  */
 public class TestFactory {
     public static void main(String[] args){
-        Random rand = new Random();
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
-        System.out.println(rand.nextInt(2));
+        ObjectsFactory f = new ObjectsFactory();
+        
+        Plant p1 = (Plant)f.getPlant();
+        ICrosser p2 = (Plant)p1.makeCopy();
+        
+        System.out.println("carrot: "+p1);
+        System.out.println("carrot2: "+p2);
         
     }
 }

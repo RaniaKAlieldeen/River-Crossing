@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,6 +29,7 @@ public class RCGUI extends JPanel implements MouseListener {
         new JButton("Undo"), new JButton("Redo"), new JButton(">>"), new JButton("Result")};
     JButton[] menuButtons = {new JButton("Story 1"), 
         new JButton("Story 2"), new JButton("Reset"), new JButton("Load"), new JButton("Save")};
+    static JLabel label = new JLabel("helooo");
     // ==========================================================
     // Private Fields
     // ==========================================================
@@ -230,6 +232,9 @@ public class RCGUI extends JPanel implements MouseListener {
         RCGUI newContentPane = new RCGUI();
         newContentPane.setOpaque(true);
         newContentPane.setLayout(null);
+        label.setBounds(300, 20, 100, 20);
+        label.setVisible(true);
+        newContentPane.add(label);
         frame.setContentPane(newContentPane);
         
         // Display the window

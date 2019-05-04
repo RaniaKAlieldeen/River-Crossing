@@ -28,4 +28,10 @@ public class Cabbage extends Plant {
 
         return c;
     }
+
+    @Override
+    public ICrosser makeCopy() {
+        ICrosser crosser = new Cabbage();
+        return crosser;
+    }
 }
