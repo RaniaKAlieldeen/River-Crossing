@@ -36,7 +36,8 @@ public class Carnivore implements ICrosser {
 
     @Override
     public ICrosser makeCopy() {
-        return (ICrosser) this;
+        ICrosser crosser = new Carnivore();
+        return (ICrosser) crosser;
     }
 
     @Override

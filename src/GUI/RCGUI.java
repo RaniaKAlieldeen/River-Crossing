@@ -55,8 +55,20 @@ public class RCGUI extends JPanel implements MouseListener {
         playButtons[0].addActionListener(listenerforPlayButton0);
     }
 
+    void addPlayButton1Listener(ActionListener listenerforPlayButton1){
+        playButtons[1].addActionListener(listenerforPlayButton1);
+    }
+    
+    void addPlayButton2Listener(ActionListener listenerforPlayButton2){
+        playButtons[2].addActionListener(listenerforPlayButton2);
+    }
+    
     void addPlayButton3Listener(ActionListener listenerforPlayButton3){
         playButtons[3].addActionListener(listenerforPlayButton3);
+    }
+    
+    void addPlayButton4Listener(ActionListener listenerforPlayButton4){
+        playButtons[4].addActionListener(listenerforPlayButton4);
     }
     
     void addMenuButton0Listener(ActionListener listenerforMenuButton0){
@@ -123,6 +135,7 @@ public class RCGUI extends JPanel implements MouseListener {
         for (int i = 0; i < rightCheckBox.length; i++) {
             this.rightCheckBox[i].setEnabled(false);
         }
+        repaint();
     }
 
     public void creatMainButtons() {

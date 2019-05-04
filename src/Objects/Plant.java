@@ -34,7 +34,8 @@ public class Plant implements ICrosser {
 
     @Override
     public ICrosser makeCopy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ICrosser crosser = new Plant();
+        return (ICrosser) crosser;
     }
 
     @Override

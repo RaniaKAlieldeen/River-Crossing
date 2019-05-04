@@ -23,6 +23,24 @@ public class Story2 implements IcrossingStrategy {
         return leftBankCrosser;
     }
 
+    
+    public void emptyRightBankCrosser() {
+        this.rightBankCrosser.clear();
+    }
+
+    public void emptyLeftBankCrosser() {
+        this.leftBankCrosser.clear();
+    }
+
+    public void setRightBankCrosser(List<ICrosser> rightBankCrosser) {
+        this.rightBankCrosser = rightBankCrosser;
+    }
+
+    public void setLeftBankCrosser(List<ICrosser> leftBankCrosser) {
+        this.leftBankCrosser = leftBankCrosser;
+    }
+    
+    
     public List<ICrosser> getOnBoatCrosser() {
         return onBoatCrosser;
     }
